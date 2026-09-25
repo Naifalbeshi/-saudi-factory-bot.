@@ -2,14 +2,16 @@ import os
 from flask import Flask, request, jsonify
 import telebot
 
-# تهيئة Flask بنفس الطريقة البرمجية للبوت الشغال
+# تهيئة التطبيق باسم app ليطابق البوت الشغال
 app = Flask(__name__)
 
-# 🔑 ضع توكن بوت المصنع الجديد كاملاً والخاص بك بين علامتي التنصيص أدناه مباشرة
+# 💡 حل ذكي: جعل الكلمتين تشيران لنفس التطبيق لحل خطأ Render فوراً
+server = app 
+
+# 🔑 ضع توكن بوت المصنع السعودي الكامل هنا بين علامتي التنصيص
 TOKEN = "8886950289:AAG_71RKVArou92X3f94mioBk-AwOvEnGcI"  
 bot = telebot.TeleBot(TOKEN)
 
-# 1. دالة أمر الترحب والمساعد الفني للمصنع
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     welcome_text = (
@@ -20,7 +22,6 @@ def send_welcome(message):
     )
     bot.reply_to(message, welcome_text, parse_mode="Markdown")
 
-# 2. دالة حساب مقاسات وأبعاد الأبواب
 @bot.message_handler(commands=['calculate'])
 def calculate_door(message):
     try:
@@ -35,7 +36,6 @@ def calculate_door(message):
     except (IndexError, ValueError):
         bot.reply_to(message, "❌ حدث خطأ، يرجى التأكد من كتابة الأرقام بشكل صحيح بعد الأمر.")
 
-# 3. مسار استقبال البيانات (Webhook) المظبوط والمتوافق تماماً مع ريندر
 @app.route('/', methods=['POST'])
 def telegram_webhook():
     if request.headers.get('content-type') == 'application/json':
@@ -51,6 +51,5 @@ def index():
     return "بوت مصنع معين الخير يعمل بنجاح ومستيقظ تماماً!", 200
 
 if __name__ == "__main__":
-    # تشغيل الحاوية البرمجية على المنصة
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
