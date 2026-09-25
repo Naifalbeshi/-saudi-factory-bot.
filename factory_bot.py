@@ -2,9 +2,9 @@ import os
 import telebot
 from flask import Flask, request
 
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8886950289:AAG_71RKVArou92X3f94mioBk-AwOvEnGcI")
-bot = telebot.TeleBot(TOKEN)
-server = Flask(__name__)
+TOKEN = os.getenv"TELEGRAM_BOT_TOKEN", "8886950289:AAG_71RKVArou92X3f94mioBk-AwOvEnGcI"
+bot = telebot.TeleBot(8886950289:AAG_71RKVArou92X3f94mioBk-AwOvEnGcI)
+server = Flask(__المصنع السعودي__)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
