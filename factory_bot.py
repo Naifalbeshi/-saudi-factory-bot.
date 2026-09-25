@@ -21,6 +21,9 @@ def send_welcome(message):
 def calculate_door(message):
     try:
         args = message.text.split()
+        # args[0] هو الأمر /calculate
+        # args[1] هو الارتفاع
+        # args[2] هو العرض
         height = float(args[1])
         width = float(args[2])
         area = height * width
@@ -34,6 +37,13 @@ def getMessage():
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
     return "!", 200
+
+@server.route("/")
+def webhook():
+    return "بوت مصنع معين الخير يعمل بنجاح!", 200
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 @server.route("/")
 def webhook():
