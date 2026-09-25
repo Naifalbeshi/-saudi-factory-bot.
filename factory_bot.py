@@ -2,7 +2,7 @@ import os
 import telebot
 from flask import Flask, request
 
-# 🔑 ضع هنا التوكن الجديد والكامل لبوت المصنع (الذي يبدأ بـ 8888) بين علامتي التنصيص
+# 🔑 ضع هنا توكن بوت المصنع الجديد والكامل (الذي يبدأ بـ 8888) بين علامتي التنصيص
 TOKEN = "8886950289:AAG_71RKVArou92X3f94mioBk-AwOvEnGcI"  
 bot = telebot.TeleBot(TOKEN)
 server = Flask(__name__)
@@ -21,7 +21,7 @@ def send_welcome(message):
 def calculate_door(message):
     try:
         args = message.text.split()
-        # تحديد موقع الأرقام بدقة لمنع انهيار الكود
+        # قراءة الأرقام من المصفوفة بدقة لمنع انهيار البوت
         height = float(args[1])
         width = float(args[2])
         area = height * width
