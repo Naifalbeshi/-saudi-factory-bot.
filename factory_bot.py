@@ -9,7 +9,7 @@ app = Flask(__name__)
 server = app 
 
 # 🔑 ضع توكن بوت المصنع السعودي الفعلي والكامل هنا بين علامتي التنصيص
-TOKEN = "8886950289:AAEdtJnHmYlTlQvC3nIhgIyeKNPdno5WuIo"  
+TOKEN = "8526301637:AAG0uBmjZr08xDz5md5xk2RWREjrdbEnD7E"  
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
