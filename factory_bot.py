@@ -1,15 +1,11 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import telebot
 
-# تهيئة التطبيق باسم app ليطابق البوت الشغال
 app = Flask(__name__)
+server = app
 
-# حل المشكلة للأبد: جعل السيرفر يشير إلى الكائن app مباشرة لمنع خطأ البناء
-server = app 
-
-# 🔑 ضع توكن بوت المصنع السعودي الفعلي والكامل هنا بين علامتي التنصيص
-TOKEN = "8526301637:AAG0uBmjZr08xDz5md5xk2RWREjrdbEnD7E"  
+TOKEN = os.getenv("8526301637:AAExxSCgqy_3bqYRuXtAoeZdSL5ek1236j0") # ناخذه من Render مو من الكود
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
@@ -30,26 +26,19 @@ def calculate_door(message):
             height = float(args[1])
             width = float(args[2])
             area = height * width
-            bot.reply_to(message, f"🏭 **مصنع شركة معين الخير**\n📐 المساحة الإجمالية للباب: `{area:.2f}` متر مربع.")
+            bot.reply_to(message, f"🏭 **مصنع شركة معين الخير**\n📐 المساحة: `{area:.2f}` متر مربع.", parse_mode="Markdown")
         else:
-            bot.reply_to(message, "❌ يرجى إدخال المقاسات بعد الأمر. مثال:\n`/calculate 2.5 1.2`")
-    except (IndexError, ValueError):
-        bot.reply_to(message, "❌ حدث خطأ، يرجى التأكد من كتابة الأرقام بشكل صحيح بعد الأمر.")
+            bot.reply_to(message, "❌ مثال:\n`/calculate 2.5 1.2`", parse_mode="Markdown")
+    except:
+        bot.reply_to(message, "❌ تأكد من الأرقام")
 
 @app.route('/', methods=['POST'])
-def telegram_webhook():
-    if request.headers.get('content-type') == 'application/json':
-        json_string = request.get_data().decode('utf-8')
-        update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
-        return '', 200
-    else:
-        return 'Invalid request', 403
+def webhook():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return '', 200
 
 @app.route('/', methods=['GET'])
 def index():
-    return "بوت مصنع معين الخير يعمل بنجاح ومستيقظ تماماً!", 200
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    return "بوت معين الخير شغال ✅", 200
