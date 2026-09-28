@@ -5,7 +5,7 @@ import telebot
 app = Flask(__name__)
 server = app
 
-TOKEN = os.getenv("8526301637:AAExxSCgqy_3bqYRuXtAoeZdSL5ek1236j0") # ناخذه من Render مو من الكود
+TOKEN = os.getenv("BOT_TOKEN") # ناخذه من Render مو من الكود
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
